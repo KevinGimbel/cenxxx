@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="fediverse:creator" content="@KevinGimbel@fosstodon.org">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❎</text></svg>">
     <title>cenxxx</title>
     <style>
         * {
@@ -93,9 +94,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     var cenxxx = document.getElementById('cenxxx');
     var output = document.getElementById('output');
-    
+    var skip = document.getElementById('skip');
     function censor(val) {
-        let skipChars = document.getElementById('skip').value.split('');
+        let skipChars = skip.value.split('');
         let input = val.split('');
         for (var i = 0; i < input.length; i++) {
             if (skipChars.indexOf(input[i]) >= 0) {
@@ -108,11 +109,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     cenxxx.addEventListener('click', function() {
         cenxxx.select();
-    })
+    });
 
     cenxxx.addEventListener('input', function() {
         output.innerHTML = censor(cenxxx.value);
-    })
+    });
+    
+    skip.addEventListener('input', function() {
+        output.innerHTML = censor(cenxxx.value);
+    });
 });
 </script>
 </body>
