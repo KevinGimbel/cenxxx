@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="fediverse:creator" content="@KevinGimbel@fosstodon.org">
+    <title>cenxxx</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        html {
+            padding: .5rem;
+            background: hotpink;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 1rem);
+            padding: 0;
+            border-radius: 6px;
+        }
+        .app {
+            max-width: 30rem;
+        }
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid hotpink;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            line-height: 2;
+        }
+        .text--small {
+            font-size: 0.8rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+        }
+        input:hover {
+            cursor: pointer;
+        }
+        ::selection {
+            background: hotpink;
+            color: #333;
+        }
+        #output {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="app">
+        <header>
+            <h1>cenxxx</h1>
+            <p>Simple text censoring tool. Enter text in the input field below and each character will be replaced with "x".</p>        
+        </header>
+        <label for="cenxxx" class="text--small"> Text to censor
+            <input type="text" id="cenxxx" value="cenxxx">
+        </label>
+        <label for="skip" class="text--small">Characters to skip from censoring, enter all here with no spaces between.
+            <input type="text" id="skip" value="-">
+        </label>
+        <div id="output">xxxxxx</div>
+    
+        <footer class="footer">
+            Made by <a href="https://kevingimbel.de/">Kevin Gimbel</a> | Code on <a href="https://github.com/KevinGimbel/cenxxx">GitHub</a>
+        </footer>
+    </main>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var cenxxx = document.getElementById('cenxxx');
+    var output = document.getElementById('output');
+    
+    function censor(val) {
+        let skipChars = document.getElementById('skip').value.split('');
+        let input = val.split('');
+        for (var i = 0; i < input.length; i++) {
+            if (skipChars.indexOf(input[i]) >= 0) {
+                continue;
+            }
+            input[i] = "x";
+        }
+        return input.join('');
+    }
+
+    cenxxx.addEventListener('click', function() {
+        cenxxx.select();
+    })
+
+    cenxxx.addEventListener('input', function() {
+        output.innerHTML = censor(cenxxx.value);
+    })
+});
+</script>
+</body>
+</html>
